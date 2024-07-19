@@ -11,9 +11,7 @@ export class CaracteristicasEntity implements ICaracteristicas{
     
     @Column({type: 'varchar'})
     nombre!: string;
-    
-    @OneToMany(() => Caracteristicas_ProductoEntity, caracteristicas_Producto => caracteristicas_Producto.caracteristicas)
-    caracteristicas_Producto!: ICaracteristicas_Producto[];
 
-
+    @OneToMany(() => Caracteristicas_ProductoEntity, caracteristicaProducto => caracteristicaProducto.caracteristica)
+    caracteristicaProducto!: Caracteristicas_ProductoEntity[];
 }

@@ -10,10 +10,20 @@ export const getProduct = async (req: Request, res: Response) =>{
     }
 }
 
-export const registerProduct = async (req: Request, res: Response) => {
-    const product = req.body;
+export const getPropertyById = async (req: Request, res: Response) => {
     try {
-        const newProduct = await ProductService.registerProduct(product);
+        const properties = await ProductService.getPropertiesById(req.body.id)
+        return res.json(properties)
+    }
+    catch{
+
+    }
+}
+
+export const registerProduct = async (req: Request, res: Response) => {
+    const {product, facts} = req.body;
+    try {
+        const newProduct = await ProductService.registerProduct(product, facts);
         res.json({
             status: true,
             newProduct

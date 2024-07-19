@@ -7,22 +7,25 @@ import { CaracteristicasEntity } from './CaracteristicasEntity';
 
 @Entity({name:'Caracteristicas_Producto'})
 export class Caracteristicas_ProductoEntity implements ICaracteristicas_Producto{
-    
-    @PrimaryColumn({nullable:false})
-    id_Caracteristicas!: number;
+    @PrimaryGeneratedColumn()
+    public caracteristicaProductoId!: number
 
-    @PrimaryColumn({nullable:false})
-    id_Producto!: number;
+    @Column()       
+    public value!: string
 
-    @Column({nullable: false})
-    value!: string;
+    @ManyToOne( () => CaracteristicasEntity, (caracteristica) => caracteristica.caracteristicaProducto)
+    @JoinColumn({
+        name: "car_id",
+        referencedColumnName: "id_Caracteristicas",
+        foreignKeyConstraintName: "fk_car_id"
+    })
+    caracteristica!: CaracteristicasEntity
 
-    @OneToMany(() => CaracteristicasEntity, caracteristicas => caracteristicas.caracteristicas_Producto)
-    @JoinColumn({ name: 'id_Caracteristica'})
-    caracteristicas!: ICaracteristicas[];
-
-    @OneToMany(() => ProductoEntity, producto => producto.caracteristicas_producto)
-    @JoinColumn({ name: 'id_Producto'})
-    producto!: IProducto[];
-    
+    @ManyToOne( () => ProductoEntity, (producto) => producto.caracteristicasProducto)
+    @JoinColumn({
+        name: "prod_id",
+        referencedColumnName: "id_Producto",
+        foreignKeyConstraintName: "fk_prod_id"
+    })
+    producto!: ProductoEntity
 }

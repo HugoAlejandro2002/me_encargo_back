@@ -14,7 +14,7 @@ AppDataSource.initialize().then(() => {
   app.use(express.json())
   app.use(cors())
  
-  app.use('/seller',sellerRouter)
+  // app.use('/seller',sellerRouter)
   app.use('/product',productRouter)
 
   app.listen(port, () => {
